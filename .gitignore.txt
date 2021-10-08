@@ -1,0 +1,4 @@
+/.env
+/null.txt
+/privatekey.pem
+/publickey.pem
