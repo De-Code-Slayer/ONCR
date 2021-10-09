@@ -1,5 +1,5 @@
 from app import db, session, abort, firestore,os, config, make_response
-from app.user.models.house_model import House
+from app.houses.models.house_model import House
 
 
 def create_new_house(data):
@@ -21,7 +21,26 @@ def create_new_house(data):
             # try:
             print(data)
             data = House( pos=pos, features=features, address=address, contact=contact, title=title, images=images, services=services, public_opinion=public_opinion, meta=meta, description=description, parent_category_id=parent_category_id, sub_category_id=sub_category_id )
-            db.collection(u'Apartments').add(data.to_dict())
+            _data = data.to_dict()
+            db.collection(u'Places').add({
+                u'pos' : { 
+                    u'geohash': _data[u'pos'][u'geohash'],
+                    u'geopoint': firestore.GeoPoint(_data[u'pos'][u'geopoint'][u'latitude'], _data[u'pos'][u'geopoint'][u'longitude'])
+                    },
+                u'features': _data[u'features'],
+                u'address': _data[u'address'],
+                u'contact': _data[u'contact'],
+                u'open_hours': _data[u'open_hours'],
+                u'category': _data[u'category'],
+                u'title': _data[u'title'],
+                u'images': _data[u'images'],
+                u'services': _data[u'services'],
+                u'public_opinion': _data[u'public_opinion'],
+                u'meta': _data[u'meta'],
+                u'description': _data[u'description'],
+                u'parent_category_id': _data[u'parent_category_id'],
+                u'sub_category_id': _data[u'sub_category_id']
+            })
             print("=======> added to database")
             return data.to_dict()
     except Exception as e:

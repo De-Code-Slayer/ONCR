@@ -1,4 +1,3 @@
-from app.user.controllers.places_controller import create_new_place, read_place, update_place
 from flask.helpers import make_response
 from app import app, auth, session, request, url_for, redirect, Resource, api, reqparse
 import json

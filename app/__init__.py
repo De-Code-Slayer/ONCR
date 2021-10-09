@@ -36,8 +36,8 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 from app.user.routes import user_routes
-from app.user.routes import places_routes
-from app.user.routes import houses_routes
+from app.places.routes import places_routes
+from app.houses.routes import houses_routes
 # return firestore.collection("Places").add({
 #         pos: {
 #             geohash: pos.position.geohash,

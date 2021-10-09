@@ -1,27 +1,28 @@
 from flask.helpers import make_response
 from app import app, auth, session, request, url_for, redirect, Resource, api, reqparse
-from app.user.controllers.houses_controllers import create_new_house, read_house, update_house
+from app.places.controllers.places_controller import create_new_place, read_place, update_place
 
-class houses(Resource):
+class places(Resource):
     def post(self):
+
          self.args = request.json
-         house = create_new_house(self.args)
-         return house
+         place = create_new_place(self.args)
+         return place
 
     def get(self):
         self.args = request.json
         print(self.args)
         if self.args == "None":
 
-           place = read_house(self.args, method="all")
+           place = read_place(self.args, method="all")
            return place
         else:
-            place = read_house(self.args)
+            place = read_place(self.args)
             return place
     
     def put(self):
         self.args = request.json
-        update_data = update_house(self.args)
+        update_data = update_place(self.args)
         return update_data
 
 
@@ -31,4 +32,4 @@ class houses(Resource):
 
 
 
-api.add_resource(houses, '/api/user/houses', endpoint="houses")
+api.add_resource(places, '/api/user/places', endpoint="places")
